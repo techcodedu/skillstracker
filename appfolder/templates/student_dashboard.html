@@ -1,0 +1,78 @@
+{% extends "layout.html" %} {% block title %}Student Dashboard - SkillsTracker{%
+endblock %} {% block content %}
+<div class="container mt-4">
+  <!-- Welcome Message and Logout Button -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Welcome, {{ session['username'] }}!</h2>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+  </div>
+
+  <h1 class="mb-4">Student Dashboard</h1>
+
+  <!-- Student's Overview -->
+  <div class="row">
+    <div class="col-lg-6 mb-3">
+      <div class="card h-100">
+        <div class="card-header">Your Progress</div>
+        <div class="card-body">
+          <!-- This section could be dynamically filled with the student's progress data -->
+          <p>Track your progress across different competencies and modules.</p>
+          <div
+            class="progress-bar"
+            role="progressbar"
+            style="width: '{{ progress.percentage }}%';"
+            aria-valuenow="{{ progress.percentage }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            {{ progress.percentage }}%
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mb-3">
+      <div class="card h-100">
+        <div class="card-header">Upcoming Modules</div>
+        <div class="card-body">
+          <!-- List of upcoming modules or sessions -->
+          <!-- Upcoming Modules Section -->
+          <ul class="list-group">
+            {% for module in upcoming_modules %}
+            <li class="list-group-item">
+              {{ module.name }} - {{ module.date }}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Progress Report -->
+  <div class="card mt-4">
+    <div class="card-header">Detailed Progress Report</div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Module</th>
+            <th scope="col">Competency</th>
+            <th scope="col">Status</th>
+            <th scope="col">Completion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dynamically generate rows here based on student's competencies and their status -->
+          <tr>
+            <td>Module 1</td>
+            <td>Competency 1</td>
+            <td>In Progress</td>
+            <td>50%</td>
+          </tr>
+          <!-- Repeat for each competency -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
